@@ -8,6 +8,9 @@ import com.sparta.education.repository.BoardRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class BoardService {
 
@@ -49,4 +52,12 @@ public class BoardService {
         }
     }
 
+    public List<BoardResponse> getBoardList() {
+        List<Board> boardList = boardRepository.findAllByOrderByDateCreatedDesc();
+        List<BoardResponse> boardResponseList = new ArrayList<>();
+        for(Board board : boardList) {
+            boardResponseList.add(new BoardResponse(board));
+        }
+        return boardResponseList;
+    }
 }
